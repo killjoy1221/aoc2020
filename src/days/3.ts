@@ -1,4 +1,4 @@
-import { Puzzle } from './index';
+import { Puzzle } from '../index';
 import { prod } from '../util';
 
 export class Day3 implements Puzzle {
