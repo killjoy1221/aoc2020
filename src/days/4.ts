@@ -74,13 +74,8 @@ function checkHeight (value: string) {
 
 function checkYear (minYear: number, maxYear: number) {
     return (value: string) => {
-        if (/^\d{4}$/.test(value)) {
-            const year = parseInt(value);
-            if (year >= minYear && year <= maxYear) {
-                return true;
-            }
-        }
-        return false;
+        const year = parseInt(value);
+        return year >= minYear && year <= maxYear;
     };
 }
 
