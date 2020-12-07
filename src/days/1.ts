@@ -1,13 +1,21 @@
 import { Puzzle } from '../index';
 import { prod, sum } from '../util';
 
+const testData = `\
+1721
+979
+366
+299
+675
+1456
+`;
+
 export class Day1 implements Puzzle {
     private readonly data: number[];
 
-    constructor (buffer: Buffer) {
-        this.data = buffer.toString('utf-8')
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8').trim()
             .split('\n')
-            .filter(x => x)
             .map(x => parseInt(x));
     }
 

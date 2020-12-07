@@ -1,5 +1,11 @@
 import { Puzzle } from '../index';
 
+const testData = `\
+1-3 a: abcde
+1-3 b: cdefg
+2-9 c: ccccccccc
+`;
+
 interface Password {
     first: number
     second: number
@@ -10,8 +16,8 @@ interface Password {
 export class Day2 implements Puzzle {
     private readonly data: ReadonlyArray<Password>
 
-    constructor (buffer: Buffer) {
-        this.data = buffer.toString('utf-8').trim()
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8').trim()
             .split(/\r?\n/)
             .map(line => {
                 const [firstStr, secondStr, letter, password] = /^(\d+)-(\d+) (\w): (.+)$/.exec(line)!.slice(1);
