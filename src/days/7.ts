@@ -28,11 +28,8 @@ export class Day7 implements Puzzle {
     private readonly data: Rules;
 
     constructor (buffer?: Buffer) {
-        const input = (buffer ?? testData).toString('utf-8');
-
         this.data = Object.fromEntries(
-            // testData
-            input.trim()
+            (buffer ?? testData).toString('utf-8').trim()
                 .split(/\r?\n/)
                 .map(line => {
                     const match = RULE_REG.exec(line)!;
@@ -53,20 +50,20 @@ export class Day7 implements Puzzle {
         );
     }
 
-    findTargetBag (type: string) {
+    private findTargetBag (type: string) {
         return Object.entries(this.data).filter(([bag, rules]) => {
             return rules.find(rule => rule.type === type);
         }).map(([bag]) => bag);
     }
 
-    findBags (type: string): string[] {
+    private findBags (type: string): string[] {
         const result = this.findTargetBag(type);
         return [...new Set([...result, ...result.flatMap(bag => {
             return this.findBags(bag);
         })])];
     }
 
-    countBags (type: string): number {
+    private countBags (type: string): number {
         return this.data[type].reduce((total, bag) => {
             return total + bag.count + bag.count * this.countBags(bag.type);
         }, 0);
