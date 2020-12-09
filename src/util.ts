@@ -18,7 +18,7 @@ export function prod (numbers: number[]) {
  * Calculates a union set from an array of Sets
  * @param sets The sets to use
  */
-export function union<T> (...sets: Set<T>[]): Set<T> {
+export function union<T> (sets: Set<T>[]): Set<T> {
     return new Set(sets.flatMap(s => [...s]));
 }
 
@@ -26,7 +26,7 @@ export function union<T> (...sets: Set<T>[]): Set<T> {
  * Calculates an intersect set from an array of Sets.
  * @param sets The sets to use
  */
-export function intersect<T> (...sets: Set<T>[]): Set<T> {
+export function intersect<T> (sets: Set<T>[]): Set<T> {
     if (sets.length === 0) {
         return new Set();
     }
@@ -35,4 +35,16 @@ export function intersect<T> (...sets: Set<T>[]): Set<T> {
     return sets.reduce((a, b) => {
         return new Set([...a].filter(x => b.has(x)));
     }, first);
+}
+
+export function combinations<T> (items: T[]): [T, T][] {
+    const result: [T, T][] = [];
+    for (const i1 in items) {
+        for (const i2 in items) {
+            if (i1 !== i2) {
+                result.push([items[i1], items[i2]]);
+            }
+        }
+    }
+    return result;
 }
