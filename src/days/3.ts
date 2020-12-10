@@ -1,13 +1,9 @@
-import { Puzzle } from '../index';
+import { ArrayPuzzle } from '../index';
 import { prod } from '../util';
 
-export class Day3 implements Puzzle {
-    private readonly data: string[][]
-
-    constructor (buffer?: Buffer) {
-        this.data = (buffer ?? testData).toString('utf-8')
-            .split(/\r?\n/)
-            .map(s => s.split(''));
+export class Day3 extends ArrayPuzzle<string[]> {
+    protected parseSingleData (input: string) {
+        return input.split('');
     }
 
     solvePart1 () {
@@ -36,6 +32,10 @@ export class Day3 implements Puzzle {
             }
         }
         return trees;
+    }
+
+    protected getTestData () {
+        return testData;
     }
 }
 

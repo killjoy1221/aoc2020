@@ -1,4 +1,4 @@
-import { Puzzle } from '../index';
+import { ArrayPuzzle } from '../index';
 
 interface Password {
     first: number
@@ -7,18 +7,12 @@ interface Password {
     password: string
 }
 
-export class Day2 implements Puzzle {
-    private readonly data: ReadonlyArray<Password>
-
-    constructor (buffer?: Buffer) {
-        this.data = (buffer ?? testData).toString('utf-8').trim()
-            .split(/\r?\n/)
-            .map(line => {
-                const [firstStr, secondStr, letter, password] = /^(\d+)-(\d+) (\w): (.+)$/.exec(line)!.slice(1);
-                const first = parseInt(firstStr);
-                const second = parseInt(secondStr);
-                return { first, second, letter, password } as Password;
-            });
+export class Day2 extends ArrayPuzzle<Password> {
+    protected parseSingleData (input: string) {
+        const [firstStr, secondStr, letter, password] = /^(\d+)-(\d+) (\w): (.+)$/.exec(input)!.slice(1);
+        const first = parseInt(firstStr);
+        const second = parseInt(secondStr);
+        return { first, second, letter, password } as Password;
     }
 
     private handleData (func: (input: Password) => boolean): { valid: number, invalid: number } {
@@ -47,6 +41,10 @@ export class Day2 implements Puzzle {
             const secondLetter = password.charAt(second - 1);
             return (firstLetter === letter || secondLetter === letter) && firstLetter !== secondLetter;
         }));
+    }
+
+    protected getTestData () {
+        return testData;
     }
 }
 

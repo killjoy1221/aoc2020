@@ -1,4 +1,4 @@
-import { Puzzle } from '../index';
+import { ArrayPuzzle } from '../index';
 
 type Global = {
     offset: number
@@ -47,16 +47,10 @@ class Instruction {
     }
 }
 
-export class Day8 implements Puzzle {
-    private readonly data: Instruction[];
-
-    constructor (buffer?: Buffer) {
-        this.data = (buffer ?? testData).toString('utf-8').trim()
-            .split(/\r?\n/)
-            .map(line => {
-                const [op, val] = line.split(' ');
-                return new Instruction(operations[op as Op], parseInt(val));
-            });
+export class Day8 extends ArrayPuzzle<Instruction> {
+    protected parseSingleData (input: string): Instruction {
+        const [op, val] = input.split(' ');
+        return new Instruction(operations[op as Op], parseInt(val));
     }
 
     private runProgram () {
@@ -94,6 +88,10 @@ export class Day8 implements Puzzle {
                 return globals;
             }).find(g => g.complete)!;
         console.log(globals.accumulator);
+    }
+
+    protected getTestData (): string {
+        return testData;
     }
 }
 

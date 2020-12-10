@@ -1,12 +1,9 @@
-import { Puzzle } from '../index';
+import { AbstractPuzzle } from '../index';
 import { intersect, sum, union } from '../util';
 
-export class Day6 implements Puzzle {
-    private readonly data: Set<string>[][];
-
-    constructor (buffer?: Buffer) {
-        this.data = (buffer ?? testData).toString('utf-8').trim()
-            .split(/(\r?\n){2}/)
+export class Day6 extends AbstractPuzzle<Set<string>[][]> {
+    protected parseData (input: string) {
+        return input.split(/(\r?\n){2}/)
             .map(s => s.trim())
             .filter(s => s)
             .map(s => s.split(/\r?\n/).map(s => new Set(s)));
@@ -22,6 +19,10 @@ export class Day6 implements Puzzle {
         // intersect of sets
         const intersects = this.data.map(intersect);
         console.log(sum(intersects.map(group => group.size)));
+    }
+
+    protected getTestData () {
+        return testData;
     }
 }
 
