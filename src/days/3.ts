@@ -1,20 +1,6 @@
 import { Puzzle } from '../index';
 import { prod } from '../util';
 
-const testData = `\
-..##.......
-#...#...#..
-.#....#..#.
-..#.#...#.#
-.#...##..#.
-..#.##.....
-.#.#.#....#
-.#........#
-#.##...#...
-#...##....#
-.#..#...#.#
-`;
-
 export class Day3 implements Puzzle {
     private readonly data: string[][]
 
@@ -52,3 +38,17 @@ export class Day3 implements Puzzle {
         return trees;
     }
 }
+
+const testData = `\
+..##.......
+#...#...#..
+.#....#..#.
+..#.#...#.#
+.#...##..#.
+..#.##.....
+.#.#.#....#
+.#........#
+#.##...#...
+#...##....#
+.#..#...#.#
+`;

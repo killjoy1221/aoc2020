@@ -1,24 +1,6 @@
 import { Puzzle } from '../index';
 import { intersect, sum, union } from '../util';
 
-const testData = `\
-abc
-
-a
-b
-c
-
-ab
-ac
-
-a
-a
-a
-a
-
-b
-`;
-
 export class Day6 implements Puzzle {
     private readonly data: Set<string>[][];
 
@@ -42,3 +24,21 @@ export class Day6 implements Puzzle {
         console.log(sum(intersects.map(group => group.size)));
     }
 }
+
+const testData = `\
+abc
+
+a
+b
+c
+
+ab
+ac
+
+a
+a
+a
+a
+
+b
+`;

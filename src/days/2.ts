@@ -1,11 +1,5 @@
 import { Puzzle } from '../index';
 
-const testData = `\
-1-3 a: abcde
-1-3 b: cdefg
-2-9 c: ccccccccc
-`;
-
 interface Password {
     first: number
     second: number
@@ -55,3 +49,9 @@ export class Day2 implements Puzzle {
         }));
     }
 }
+
+const testData = `\
+1-3 a: abcde
+1-3 b: cdefg
+2-9 c: ccccccccc
+`;

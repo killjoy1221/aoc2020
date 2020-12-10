@@ -1,54 +1,6 @@
 import { Puzzle } from '../index';
 import { prod } from '../util';
 
-const testData = `\
-16
-10
-15
-5
-1
-11
-7
-19
-6
-12
-4
-`;
-
-const testData2 = `\
-28
-33
-18
-42
-31
-14
-46
-20
-48
-47
-24
-23
-49
-45
-19
-38
-39
-11
-1
-32
-25
-35
-8
-17
-7
-9
-4
-2
-34
-10
-3
-`;
-
 export class Day10 implements Puzzle {
     private readonly data: number[]
 
@@ -59,7 +11,7 @@ export class Day10 implements Puzzle {
             .sort((a, b) => a - b);
     }
 
-    private useAllAdapters (): Record<1|2|3, number> {
+    private useAllAdapters (): Record<1 | 2 | 3, number> {
         const diffs: Record<1 | 2 | 3, number> = {
             1: 0,
             2: 0,
@@ -127,3 +79,51 @@ export class Day10 implements Puzzle {
         console.log(prod(sets));
     }
 }
+
+const testData = `\
+16
+10
+15
+5
+1
+11
+7
+19
+6
+12
+4
+`;
+
+const testData2 = `\
+28
+33
+18
+42
+31
+14
+46
+20
+48
+47
+24
+23
+49
+45
+19
+38
+39
+11
+1
+32
+25
+35
+8
+17
+7
+9
+4
+2
+34
+10
+3
+`;

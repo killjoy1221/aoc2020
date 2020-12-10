@@ -1,11 +1,5 @@
 import { Puzzle } from '../index';
 
-const testData = `\
-BFFFBBFRRR
-FFFBBBFRRR
-BBFFBBFRLL
-`;
-
 const ZERO = /[FL]/g;
 const ONE = /[BR]/g;
 
@@ -61,3 +55,9 @@ export class Day5 implements Puzzle {
         }
     }
 }
+
+const testData = `\
+BFFFBBFRRR
+FFFBBBFRRR
+BBFFBBFRLL
+`;

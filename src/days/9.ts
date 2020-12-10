@@ -2,29 +2,6 @@ import { Puzzle } from '../index';
 import { combinations, sum } from '../util';
 import assert from 'assert';
 
-const testData = `\
-35
-20
-15
-25
-47
-40
-62
-55
-65
-95
-102
-117
-150
-182
-127
-219
-299
-277
-309
-576
-`;
-
 export class Day9 implements Puzzle {
     private readonly data: number[]
     private readonly preamble: number
@@ -78,3 +55,26 @@ export class Day9 implements Puzzle {
         }
     }
 }
+
+const testData = `\
+35
+20
+15
+25
+47
+40
+62
+55
+65
+95
+102
+117
+150
+182
+127
+219
+299
+277
+309
+576
+`;
