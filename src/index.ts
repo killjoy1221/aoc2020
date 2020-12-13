@@ -1,30 +1,28 @@
-#!/usr/bin/env node
 import { readFile } from 'fs/promises';
-import { Puzzles } from './days';
 
-require('source-map-support').install();
+export interface Puzzle {
+    solvePart1(): void;
 
-async function main () {
-    if (process.argv.length < 3) {
-        console.log('No arguments provided');
-        return 1;
-    }
-    const day = process.argv[2];
-    const Puzzle = Puzzles.get(day);
-    if (Puzzle === undefined) {
-        console.log('day', day, "doesn't exist (yet)");
-        return 2;
-    }
-    const puzzle = new Puzzle(await readFile(`inputs/${day}.txt`));
-    console.log('PART 1');
-    puzzle.solvePart1();
-    console.log('PART 2');
-    puzzle.solvePart2();
+    solvePart2(): void;
 }
 
-main()
-    .then(process.exit)
-    .catch((e) => {
-        console.error(e);
-        process.exit(3);
-    });
+export interface PuzzleConstructor {
+    new(buffer: Buffer): Puzzle
+}
+
+export async function loadPuzzle (day: string) {
+    try {
+        const puzzle = await import(`./days/${day}`);
+        const Puzzle = puzzle[`Day${day}`] as PuzzleConstructor;
+        return new Puzzle(await loadInput(day));
+    } catch (e) {
+        if (e.code !== 'MODULE_NOT_FOUND') {
+            console.log(e.toString());
+        }
+        return undefined;
+    }
+}
+
+async function loadInput (day: string): Promise<Buffer> {
+    return await readFile(`inputs/${day}.txt`);
+}

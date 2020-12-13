@@ -1,4 +1,4 @@
-import { Puzzle } from './index';
+import { Puzzle } from '../index';
 
 const ZERO = /[FL]/g;
 const ONE = /[BR]/g;

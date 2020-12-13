@@ -1,4 +1,4 @@
-import { Puzzle } from './index';
+import { Puzzle } from '../index';
 
 interface Passport {
     byr: string
