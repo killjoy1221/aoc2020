@@ -7,19 +7,19 @@ export interface Puzzle {
 }
 
 export interface PuzzleConstructor {
-    new(buffer: Buffer): Puzzle
+    new(buffer?: Buffer): Puzzle
 }
 
-export async function loadPuzzle (day: string) {
+export async function loadPuzzle (day: string, test: boolean) {
     try {
         const puzzle = await import(`./days/${day}`);
         const Puzzle = puzzle[`Day${day}`] as PuzzleConstructor;
-        return new Puzzle(await loadInput(day));
+        return new Puzzle(test ? undefined : await loadInput(day));
     } catch (e) {
-        if (e.code !== 'MODULE_NOT_FOUND') {
-            console.log(e.toString());
+        if (e.code === 'MODULE_NOT_FOUND') {
+            return undefined;
         }
-        return undefined;
+        throw e;
     }
 }
 

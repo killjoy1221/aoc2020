@@ -1,11 +1,29 @@
 import { Puzzle } from '../index';
 import { intersect, sum, union } from '../util';
 
+const testData = `\
+abc
+
+a
+b
+c
+
+ab
+ac
+
+a
+a
+a
+a
+
+b
+`;
+
 export class Day6 implements Puzzle {
     private readonly data: Set<string>[][];
 
-    constructor (buffer: Buffer) {
-        this.data = buffer.toString('utf-8')
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8').trim()
             .split(/(\r?\n){2}/)
             .map(s => s.trim())
             .filter(s => s)

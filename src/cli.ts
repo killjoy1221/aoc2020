@@ -9,7 +9,8 @@ async function main () {
         return 1;
     }
     const day = process.argv[2];
-    const puzzle = await loadPuzzle(day);
+    const test = process.argv[3] === '--test';
+    const puzzle = await loadPuzzle(day, test);
     if (puzzle === undefined) {
         console.log('day', day, "doesn't exist (yet)");
         return 2;

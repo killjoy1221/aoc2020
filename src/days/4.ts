@@ -1,5 +1,21 @@
 import { Puzzle } from '../index';
 
+const testData = `\
+ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+byr:1937 iyr:2017 cid:147 hgt:183cm
+
+iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+hcl:#cfa07d byr:1929
+
+hcl:#ae17e1 iyr:2013
+eyr:2024
+ecl:brn pid:760753108 byr:1931
+hgt:179cm
+
+hcl:#cfa07d eyr:2025 pid:166559648
+iyr:2011 ecl:brn hgt:59in
+`;
+
 interface Passport {
     byr: string
     iyr: string
@@ -82,8 +98,8 @@ function checkYear (minYear: number, maxYear: number) {
 export class Day4 implements Puzzle {
     private readonly data: Partial<Readonly<Passport>>[]
 
-    constructor (buffer: Buffer) {
-        this.data = buffer.toString('utf-8')
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8').trim()
             .split(/(\r?\n){2}/)
             .map((section) => section.replace(/\s+/g, ' ').trim())
             .filter((a) => a)

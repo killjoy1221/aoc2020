@@ -1,5 +1,11 @@
 import { Puzzle } from '../index';
 
+const testData = `\
+BFFFBBFRRR
+FFFBBBFRRR
+BBFFBBFRLL
+`;
+
 const ZERO = /[FL]/g;
 const ONE = /[BR]/g;
 
@@ -31,8 +37,8 @@ export class Day5 implements Puzzle {
     // a sorted list of boarding passes
     private readonly data: BoardingPass[]
 
-    constructor (buffer: Buffer) {
-        this.data = buffer.toString('utf-8').trim()
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8').trim()
             .split(/\r?\n/)
             .map(parseBoardingPass)
             .sort((a, b) => a.sid - b.sid);

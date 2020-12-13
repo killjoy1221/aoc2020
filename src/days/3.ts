@@ -1,11 +1,25 @@
 import { Puzzle } from '../index';
 import { prod } from '../util';
 
+const testData = `\
+..##.......
+#...#...#..
+.#....#..#.
+..#.#...#.#
+.#...##..#.
+..#.##.....
+.#.#.#....#
+.#........#
+#.##...#...
+#...##....#
+.#..#...#.#
+`;
+
 export class Day3 implements Puzzle {
     private readonly data: string[][]
 
-    constructor (buffer: Buffer) {
-        this.data = buffer.toString('utf-8')
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8')
             .split(/\r?\n/)
             .map(s => s.split(''));
     }
