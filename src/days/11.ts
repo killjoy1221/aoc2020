@@ -1,4 +1,4 @@
-import { AbstractPuzzle } from '../index';
+import { Puzzle } from '../index';
 
 type SeatStatus = '.' | '#' | 'L';
 
@@ -213,9 +213,13 @@ class SeatLayout {
     }
 }
 
-export class Day11 extends AbstractPuzzle<SeatLayout> {
-    protected parseData (input: string) {
-        return new SeatLayout(input.split(/\r?\n/).map(s => s.split('') as SeatStatus[]));
+export class Day11 implements Puzzle {
+    private readonly data: SeatLayout;
+
+    constructor (buffer?: Buffer) {
+        this.data = new SeatLayout((buffer ?? testData).toString('utf-8').trim()
+            .split(/\r?\n/)
+            .map(s => s.split('') as SeatStatus[]));
     }
 
     private fillSeats (tolerance: number, occupiedFunc: (seats: SeatLayout) => Record<string, number>) {
@@ -252,10 +256,6 @@ export class Day11 extends AbstractPuzzle<SeatLayout> {
     solvePart2 () {
         const occupied = this.fillSeats(5, s => s.getOccupiedVisibles());
         console.log(occupied);
-    }
-
-    protected getTestData (): string {
-        return testData;
     }
 }
 
