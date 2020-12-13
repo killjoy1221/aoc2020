@@ -22,16 +22,19 @@ type Ship = {
 type ShipPart1 = Required<Pick<Ship, 'position' | 'heading'>>
 type ShipPart2 = Required<Pick<Ship, 'position' | 'waypoint'>>
 
-function left (dir: Cardinal): Cardinal {
-    const obj: Record<Cardinal, Cardinal> = { S: 'E', E: 'N', N: 'W', W: 'S' };
-    return obj[dir];
+const COMPASS: Cardinal[] = ['N', 'E', 'S', 'W'];
+
+/**
+ * Rotates a cardinal direction and returns the new one.
+ */
+function rotate (dir: Cardinal, turn: 1 | -1): Cardinal {
+    const indx = (COMPASS.indexOf(dir) + turn + COMPASS.length) % COMPASS.length;
+    return COMPASS[indx];
 }
 
-function right (dir: Cardinal): Cardinal {
-    const obj: Record<Cardinal, Cardinal> = { S: 'W', W: 'N', N: 'E', E: 'S' };
-    return obj[dir];
-}
-
+/**
+ * The step actions for part 1
+ */
 const part1: Record<Action, (ship: ShipPart1, mag: number) => void> = {
     N (ship, mag) {
         // move the ship north
@@ -53,14 +56,14 @@ const part1: Record<Action, (ship: ShipPart1, mag: number) => void> = {
         // rotate the ship left
         const count = mag / 90;
         for (let i = 0; i < count; i++) {
-            ship.heading = left(ship.heading);
+            ship.heading = rotate(ship.heading, -1);
         }
     },
     R (ship, mag) {
         // rotate the ship right
         const count = mag / 90;
         for (let i = 0; i < count; i++) {
-            ship.heading = right(ship.heading);
+            ship.heading = rotate(ship.heading, +1);
         }
     },
     F (ship, mag) {
@@ -69,6 +72,9 @@ const part1: Record<Action, (ship: ShipPart1, mag: number) => void> = {
     }
 };
 
+/**
+ * The step actions for part 2
+ */
 const part2: Record<Action, (ship: ShipPart2, mag: number) => void> = {
     N (ship, mag) {
         // move the waypoint north

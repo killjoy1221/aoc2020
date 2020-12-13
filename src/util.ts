@@ -14,7 +14,7 @@ export function prod (numbers: number[]) {
     return numbers.reduce(mul, 1);
 }
 
-export function comparing<T=number> (getter?: (value: T) => number): (a: T, b: T) => number {
+export function comparing<T = number> (getter?: (value: T) => number): (a: T, b: T) => number {
     getter ??= a => a as unknown as number;
     return (a, b) => getter!(a) - getter!(b);
 }
