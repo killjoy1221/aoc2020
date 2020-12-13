@@ -2,6 +2,7 @@ import { Day1 } from './1';
 import { Day2 } from './2';
 import { Day3 } from './3';
 import { Day4 } from './4';
+import { Day5 } from './5';
 
 export interface Puzzle {
   solvePart1(): void;
@@ -18,7 +19,8 @@ export namespace Puzzles {
         1: Day1,
         2: Day2,
         3: Day3,
-        4: Day4
+        4: Day4,
+        5: Day5
     };
 
     export function get (day: string) {
