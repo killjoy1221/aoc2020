@@ -1,14 +1,9 @@
-import { Puzzle } from '../index';
+import { IntArrayPuzzle } from '../index';
 import { prod } from '../util';
 
-export class Day10 implements Puzzle {
-    private readonly data: number[]
-
-    constructor (buffer?: Buffer) {
-        this.data = (buffer ?? testData2).toString('utf-8').trim()
-            .split(/\r?\n/)
-            .map(s => parseInt(s))
-            .sort((a, b) => a - b);
+export class Day10 extends IntArrayPuzzle {
+    protected parseData (input: string): number[] {
+        return super.parseData(input).sort((a, b) => a - b);
     }
 
     private useAllAdapters (): Record<1 | 2 | 3, number> {
@@ -77,6 +72,10 @@ export class Day10 implements Puzzle {
     solvePart2 (): void {
         const sets = this.findAllCombinations();
         console.log(prod(sets));
+    }
+
+    protected getTestData (): string {
+        return testData;
     }
 }
 

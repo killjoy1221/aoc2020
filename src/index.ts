@@ -1,9 +1,42 @@
 import { readFile } from 'fs/promises';
 
+const NEW_LINE = /\r?\n/;
+
 export interface Puzzle {
+
     solvePart1(): void;
 
     solvePart2(): void;
+}
+
+export abstract class AbstractPuzzle<T> implements Puzzle {
+    protected readonly data: Readonly<T>
+    protected constructor (buffer?: Buffer) {
+        this.data = this.parseData((buffer?.toString('utf-8') ?? this.getTestData()).trim());
+    }
+
+    protected abstract parseData(input: string): T
+
+    protected abstract getTestData(): string
+
+    abstract solvePart1(): void;
+
+    abstract solvePart2(): void;
+}
+
+export abstract class ArrayPuzzle<T> extends AbstractPuzzle<ReadonlyArray<T>> {
+    protected abstract parseSingleData(input: string): T
+
+    protected parseData (input: string): T[] {
+        return input.split(NEW_LINE)
+            .map(line => this.parseSingleData(line));
+    }
+}
+
+export abstract class IntArrayPuzzle extends ArrayPuzzle<number> {
+    protected parseSingleData (input: string): number {
+        return parseInt(input);
+    }
 }
 
 export interface PuzzleConstructor {

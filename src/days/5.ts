@@ -1,4 +1,4 @@
-import { Puzzle } from '../index';
+import { ArrayPuzzle } from '../index';
 
 const ZERO = /[FL]/g;
 const ONE = /[BR]/g;
@@ -27,15 +27,14 @@ function translateBinary (text: string) {
     return parseInt(text, digits.length);
 }
 
-export class Day5 implements Puzzle {
-    // a sorted list of boarding passes
-    private readonly data: BoardingPass[]
+export class Day5 extends ArrayPuzzle<BoardingPass> {
+    protected parseSingleData (input: string): BoardingPass {
+        return parseBoardingPass(input);
+    }
 
-    constructor (buffer?: Buffer) {
-        this.data = (buffer ?? testData).toString('utf-8').trim()
-            .split(/\r?\n/)
-            .map(parseBoardingPass)
-            .sort((a, b) => a.sid - b.sid);
+    protected parseData (input: string): BoardingPass[] {
+        // a sorted list of boarding passes
+        return super.parseData(input).sort((a, b) => a.sid - b.sid);
     }
 
     solvePart1 () {
@@ -53,6 +52,10 @@ export class Day5 implements Puzzle {
             }
             prevSid = pass.sid;
         }
+    }
+
+    protected getTestData (): string {
+        return testData;
     }
 }
 

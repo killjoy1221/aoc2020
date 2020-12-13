@@ -1,4 +1,4 @@
-import { Puzzle } from '../index';
+import { AbstractPuzzle } from '../index';
 
 const RULE_REG = /^(?<name>.+) bags contain (?:(?<none>no other bags)|(?<content>.+?))\.$/;
 const BAG_REG = /^(?<bagCount>\d+) (?<type>.+) bags?$/;
@@ -12,13 +12,10 @@ type Rules = {
     [name: string]: Rule[]
 }
 
-export class Day7 implements Puzzle {
-    private readonly data: Rules;
-
-    constructor (buffer?: Buffer) {
-        this.data = Object.fromEntries(
-            (buffer ?? testData).toString('utf-8').trim()
-                .split(/\r?\n/)
+export class Day7 extends AbstractPuzzle<Rules> {
+    protected parseData (input: string): Rules {
+        return Object.fromEntries(
+            input.split(/\r?\n/)
                 .map(line => {
                     const match = RULE_REG.exec(line)!;
                     const { name, none, content } = match.groups!;
@@ -65,6 +62,10 @@ export class Day7 implements Puzzle {
     solvePart2 (): void {
         const bags = this.countBags('shiny gold');
         console.log(bags);
+    }
+
+    protected getTestData (): string {
+        return testData;
     }
 }
 
