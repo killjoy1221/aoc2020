@@ -1,9 +1,11 @@
-import { IntArrayPuzzle } from '../index';
-import { prod } from '../util';
+import { Puzzle, readIntArray } from '../index';
+import { comparing, prod } from '../util';
 
-export class Day10 extends IntArrayPuzzle {
-    protected parseData (input: string): number[] {
-        return super.parseData(input).sort((a, b) => a - b);
+export class Day10 implements Puzzle {
+    private readonly data: number[]
+
+    constructor (buffer?: Buffer) {
+        this.data = readIntArray(buffer ?? testData).sort(comparing());
     }
 
     private useAllAdapters (): Record<1 | 2 | 3, number> {
@@ -72,10 +74,6 @@ export class Day10 extends IntArrayPuzzle {
     solvePart2 (): void {
         const sets = this.findAllCombinations();
         console.log(prod(sets));
-    }
-
-    protected getTestData (): string {
-        return testData;
     }
 }
 
