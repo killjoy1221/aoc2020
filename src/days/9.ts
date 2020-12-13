@@ -1,13 +1,14 @@
-import { IntArrayPuzzle } from '../index';
+import { Puzzle, readIntArray } from '../index';
 import { combinations, sum } from '../util';
 import assert from 'assert';
 
-export class Day9 extends IntArrayPuzzle {
+export class Day9 implements Puzzle {
+    private readonly data: number[]
     private readonly preamble: number
     private invalidNumber?: number
 
     constructor (buffer?: Buffer) {
-        super(buffer);
+        this.data = readIntArray(buffer ?? testData);
         this.preamble = buffer ? 25 : 5;
     }
 
@@ -49,10 +50,6 @@ export class Day9 extends IntArrayPuzzle {
                 break;
             }
         }
-    }
-
-    protected getTestData (): string {
-        return testData;
     }
 }
 

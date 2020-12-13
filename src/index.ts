@@ -9,34 +9,18 @@ export interface Puzzle {
     solvePart2(): void;
 }
 
-export abstract class AbstractPuzzle<T> implements Puzzle {
-    protected readonly data: Readonly<T>
-    protected constructor (buffer?: Buffer) {
-        this.data = this.parseData((buffer?.toString('utf-8') ?? this.getTestData()).trim());
-    }
-
-    protected abstract parseData(input: string): T
-
-    protected abstract getTestData(): string
-
-    abstract solvePart1(): void;
-
-    abstract solvePart2(): void;
+export function readArray<T = string> (buffer: Buffer|string, mapper?: (s: string) => T) {
+    mapper ??= (s) => s as unknown as T;
+    return buffer.toString('utf-8').trim().split(NEW_LINE).map(mapper);
 }
 
-export abstract class ArrayPuzzle<T> extends AbstractPuzzle<ReadonlyArray<T>> {
-    protected abstract parseSingleData(input: string): T
-
-    protected parseData (input: string): T[] {
-        return input.split(NEW_LINE)
-            .map(line => this.parseSingleData(line));
-    }
+export function readIntArray (buffer: Buffer|string) {
+    return readArray(buffer, s => parseInt(s));
 }
 
-export abstract class IntArrayPuzzle extends ArrayPuzzle<number> {
-    protected parseSingleData (input: string): number {
-        return parseInt(input);
-    }
+export function readMatrix<T = string> (buffer: Buffer|string, mapper?: (s: string) => T) {
+    mapper ??= (s) => s as unknown as T;
+    return readArray(buffer, s => s.split('').map(mapper!));
 }
 
 export interface PuzzleConstructor {

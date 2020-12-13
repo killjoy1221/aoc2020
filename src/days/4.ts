@@ -1,4 +1,4 @@
-import { AbstractPuzzle } from '../index';
+import { Puzzle } from '../index';
 
 interface Passport {
     byr: string
@@ -79,9 +79,12 @@ function checkYear (minYear: number, maxYear: number) {
     };
 }
 
-export class Day4 extends AbstractPuzzle<Partial<Readonly<Passport>>[]> {
-    protected parseData (input: string) {
-        return input.split(/(\r?\n){2}/)
+export class Day4 implements Puzzle {
+    private readonly data: Partial<Readonly<Passport>>[]
+
+    constructor (buffer?: Buffer) {
+        this.data = (buffer ?? testData).toString('utf-8').trim()
+            .split(/(\r?\n){2}/)
             .map((section) => section.replace(/\s+/g, ' ').trim())
             .filter((a) => a)
             .map((section) => {
@@ -105,10 +108,6 @@ export class Day4 extends AbstractPuzzle<Partial<Readonly<Passport>>[]> {
             .filter(passportContainsAllRequiredFields)
             .filter((pass) => passportRequiredFieldsAreValid(pass as Passport))
             .length);
-    }
-
-    protected getTestData () {
-        return testData;
     }
 }
 

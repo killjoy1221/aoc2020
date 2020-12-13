@@ -1,7 +1,13 @@
-import { IntArrayPuzzle } from '../index';
+import { readIntArray, Puzzle } from '../index';
 import { prod, sum } from '../util';
 
-export class Day1 extends IntArrayPuzzle {
+export class Day1 implements Puzzle {
+    private readonly data: number[]
+
+    constructor (buffer?: Buffer) {
+        this.data = readIntArray(buffer ?? testData);
+    }
+
     solvePart1 () {
         this.run(2);
     }
@@ -50,10 +56,6 @@ export class Day1 extends IntArrayPuzzle {
             values[i] = this.data[indexes[i]];
         }
         return values;
-    }
-
-    getTestData (): string {
-        return testData;
     }
 }
 
