@@ -1,15 +1,6 @@
 import { Puzzle } from '../index';
 import { prod, sum } from '../util';
 
-const testData = `\
-1721
-979
-366
-299
-675
-1456
-`;
-
 export class Day1 implements Puzzle {
     private readonly data: number[];
 
@@ -69,3 +60,12 @@ export class Day1 implements Puzzle {
         return values;
     }
 }
+
+const testData = `\
+1721
+979
+366
+299
+675
+1456
+`;

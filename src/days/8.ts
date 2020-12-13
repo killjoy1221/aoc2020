@@ -1,17 +1,5 @@
 import { Puzzle } from '../index';
 
-const testData = `\
-nop +0
-acc +1
-jmp +4
-acc +3
-jmp -3
-acc -99
-acc +1
-jmp -4
-acc +6
-`;
-
 type Global = {
     offset: number
     accumulator: number
@@ -108,3 +96,15 @@ export class Day8 implements Puzzle {
         console.log(globals.accumulator);
     }
 }
+
+const testData = `\
+nop +0
+acc +1
+jmp +4
+acc +3
+jmp -3
+acc -99
+acc +1
+jmp -4
+acc +6
+`;
